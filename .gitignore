@@ -1,0 +1,6 @@
+.vs/*
+*/*/bin/*
+*/*/obj/*
+*/*/appsettings.development.json
+tests/*/Properties/launchSettings.json
+src/*/*.csproj.user
