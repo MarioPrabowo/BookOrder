@@ -13,6 +13,7 @@ namespace BookOrder.Application.Mapping
         public MappingProfile()
         {
             CreateMap<BookApiResponse, Order>().ConvertUsing<BookApiResponseToOrderConverter>();
+            CreateMap<BookApiResponse, CancelRequest>().ConvertUsing<BookApiResponseToCancelRequestConverter>();
         }
     }
 }

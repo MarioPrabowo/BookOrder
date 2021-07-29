@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookOrder.Application.Common;
 using BookOrder.Application.Interface.Client;
 using BookOrder.Application.Interface.Persistence;
 using BookOrder.Domain;
@@ -34,8 +35,15 @@ namespace BookOrder.Application.Commands
                 var bookInfo = await _bookApiClient.GetBookInfo(request.BookKey);
                 var cancelRequest = _mapper.Map<CancelRequest>(bookInfo);
                 var existingOrder = await _bookOrderRepository.GetBookOrderAsync(bookInfo.Key);
-                existingOrder.CancelOrder(cancelRequest);
-                await _bookOrderRepository.SaveBookOrderAsync(existingOrder);
+                if(existingOrder == null)
+                {
+                    throw new BusinessLogicException("Unable to cancel non-existing order");
+                }
+                var cancelOrderResult = existingOrder.CancelOrder(cancelRequest);
+                if (cancelOrderResult == OrderOperationResult.ChangesMade)
+                {
+                    await _bookOrderRepository.SaveBookOrderAsync(existingOrder);
+                }
                 return existingOrder;
             }
         }

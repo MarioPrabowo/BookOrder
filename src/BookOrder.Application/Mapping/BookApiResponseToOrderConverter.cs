@@ -25,14 +25,14 @@ namespace BookOrder.Application.Mapping
                 .IncludeRulesNotInRuleSet()
                 .ThrowOnFailures());
 
-            Order order = new Order
+            destination = new Order
             {
                 BookKey = source.Key,
                 Title = source.Title,
                 Authors = string.Join("; ", source.Authors.Select(a => a.Name))
             };
 
-            return order;
+            return destination;
         }
     }
 }

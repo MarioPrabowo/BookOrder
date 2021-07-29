@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using BookOrder.Application.Common;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -29,9 +30,16 @@ namespace BookOrderApi.Filter
 				return;
 			}
 
+			var statusCode = StatusCodes.Status500InternalServerError;
+
+			if (context.Exception is BusinessLogicException)
+			{
+				statusCode = StatusCodes.Status400BadRequest;
+			}
+
 			context.Result = new JsonResult(context.Exception.Message)
 			{
-				StatusCode = StatusCodes.Status500InternalServerError
+				StatusCode = statusCode
 			};
 		}
 	}

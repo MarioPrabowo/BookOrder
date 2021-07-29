@@ -11,12 +11,17 @@ namespace BookOrder.Domain
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public void CancelOrder(CancelRequest cancelRequest)
+        public OrderOperationResult CancelOrder(CancelRequest cancelRequest)
         {
+            if (this.Status == OrderStatus.Cancelled)
+            {
+                return OrderOperationResult.NoChangesRequired;
+            }
             // TODO: throw business validation exception if subjects contain fiction
             // TODO: throw business validation exception if cancellation time is greater than threshold
 
             this.Status = OrderStatus.Cancelled;
+            return OrderOperationResult.ChangesMade;
         }
     }
 }

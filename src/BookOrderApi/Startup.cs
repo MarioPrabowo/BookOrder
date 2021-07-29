@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BookOrder.Application;
 using BookOrder.Application.DTO;
@@ -27,7 +28,8 @@ namespace BookOrderApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options => options.Filters.Add<ExceptionFilter>());
+            services.AddControllers(options => options.Filters.Add<ExceptionFilter>())
+                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
             services.RegisterInMemoryDbServices();
             services.RegisterApiClients();
             services.RegisterApplicationLayer();
