@@ -1,4 +1,5 @@
-﻿using BookOrder.Application.DTO;
+﻿using BookOrder.Application.Commands;
+using BookOrder.Application.DTO;
 using FluentValidation;
 using MediatR;
 using System;
@@ -7,38 +8,39 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BookOrder.Application.Commands
+namespace BookOrder.Application.Queries
 {
-    public class ProcessThirdPartyCallbackCommand : IRequest<Unit>
+    public class GetCommandFromCallbackQuery : IRequest<IBaseRequest>
     {
         public ThirdPartyCallbackPayload Payload { get; set; }
 
-        public class Handler : IRequestHandler<ProcessThirdPartyCallbackCommand, Unit>
+        public class Handler : IRequestHandler<GetCommandFromCallbackQuery, IBaseRequest>
         {
-            private readonly IMediator _mediator;
-
-            public Handler(IMediator mediator)
+            public Handler()
             {
-                _mediator = mediator;
             }
 
-            public async Task<Unit> Handle(ProcessThirdPartyCallbackCommand request, CancellationToken cancellationToken)
+            public Task<IBaseRequest> Handle(GetCommandFromCallbackQuery request, CancellationToken cancellationToken)
             {
+                IBaseRequest command = null;
+
                 switch(request.Payload.Command)
                 {
                     case ThirdPartyCallbackPayload.CommandType.CancelOrder:
-                        await _mediator.Send( new CancelBookOrderCommand()
+                    {
+                        command = new CancelBookOrderCommand()
                         {
                             BookKey = request.Payload.BookKey
-                        });
+                        };
                         break;
+                    }
                 }
 
-                return Unit.Value;
+                return Task.FromResult(command);
             }
         }
 
-        public class Validator : AbstractValidator<ProcessThirdPartyCallbackCommand>
+        public class Validator : AbstractValidator<GetCommandFromCallbackQuery>
         {
             public Validator()
             {

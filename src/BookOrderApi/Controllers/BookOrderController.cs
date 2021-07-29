@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookOrder.Application.Commands;
 using BookOrder.Application.DTO;
+using BookOrder.Application.Queries;
 using BookOrder.Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,15 @@ namespace BookOrderApi.Controllers
         [HttpPost("callback")]
         public async Task ProcessThirdPartyCallback(ThirdPartyCallbackPayload payload)
         {
-            await _mediator.Send(new ProcessThirdPartyCallbackCommand
+            var command = await _mediator.Send(new GetCommandFromCallbackQuery
             {
                 Payload = payload
             });
+
+            if(command != null)
+            {
+                await _mediator.Send(command);
+            }
         }
     }
 }
