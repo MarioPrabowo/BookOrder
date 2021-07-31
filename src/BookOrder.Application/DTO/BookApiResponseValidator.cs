@@ -20,7 +20,7 @@ namespace BookOrder.Application.DTO
                 RuleFor(x => x.Title).NotNull();
                 RuleFor(x => x.Authors).NotEmpty();
                 RuleFor(x => x.Authors)
-                    .Must(authors => authors.All(a => _bookAvailabilityService.IsBookAvailable(a.Name)))
+                    .Must(authors => authors == null || authors.All(a => _bookAvailabilityService.IsBookAvailable(a.Name)))
                     .WithMessage("One or more authors are not available in our service.");
                 RuleForEach(x => x.Authors).ChildRules(authors =>
                 {

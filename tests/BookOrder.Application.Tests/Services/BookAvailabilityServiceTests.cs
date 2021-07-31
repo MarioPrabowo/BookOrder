@@ -8,7 +8,7 @@ using System;
 using System.Configuration;
 using Xunit;
 
-namespace BookOrder.Application.Tests
+namespace BookOrder.Application.Services.Tests
 {
     public class BookAvailabilityServiceTests
     {
