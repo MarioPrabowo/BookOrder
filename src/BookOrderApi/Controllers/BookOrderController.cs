@@ -29,19 +29,22 @@ namespace BookOrderApi.Controllers
             return await _mediator.Send(createBookOrderCommand);
         }
 
-        [HttpPatch]
+        [HttpPatch("cancel")]
         public async Task<Order> CancelOrder(CancelBookOrderCommand cancelBookOrderCommand)
         {
             return await _mediator.Send(cancelBookOrderCommand);
         }
 
+        [HttpGet("{*bookKey}")]
+        public async Task<Order> GetBookOrder(string bookKey)
+        {
+            return await _mediator.Send(new GetBookOrderQuery { BookKey = bookKey });
+        }
+
         [HttpPost("callback")]
         public async Task ProcessThirdPartyCallback(ThirdPartyCallbackPayload payload)
         {
-            var command = await _mediator.Send(new GetCommandFromCallbackQuery
-            {
-                Payload = payload
-            });
+            var command = await _mediator.Send(new GetCommandFromCallbackQuery { Payload = payload });
 
             if(command != null)
             {
