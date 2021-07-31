@@ -11,6 +11,7 @@ using FluentAssertions;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -105,6 +106,35 @@ namespace BookOrder.Application.Tests.Commands
             _mockMapper.Verify(m => m.Map<CancelRequest>(bookApiResponse), Times.Once);
             _mockBookOrderRepository.Verify(r => r.GetBookOrderAsync(order.BookKey), Times.Once);
             _mockBookOrderRepository.Verify(r => r.SaveBookOrderAsync(order), Times.Never);
+        }
+
+        [Theory, AutoData]
+        public void GivenValidCommand_WhenValidatingCommand_ThenSuccess(CancelBookOrderCommand command)
+        {
+            // Arrange
+            var validator = new CancelBookOrderCommand.Validator();
+
+            // Act
+            var result = validator.Validate(command);
+
+            // Assert
+            result.IsValid.Should().BeTrue();
+        }
+
+        [Theory, AutoData]
+        public void GivenCommandMissingBookKey_WhenValidatingCommand_ThenFail(CancelBookOrderCommand command)
+        {
+            // Arrange
+            command.BookKey = null;
+            var validator = new CancelBookOrderCommand.Validator();
+
+            // Act
+            var result = validator.Validate(command);
+
+            // Assert
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle();
+            result.Errors.FirstOrDefault(e => e.PropertyName == nameof(CancelBookOrderCommand.BookKey)).Should().NotBeNull();
         }
     }
 }
