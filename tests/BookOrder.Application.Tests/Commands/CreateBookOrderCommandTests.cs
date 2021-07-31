@@ -50,6 +50,7 @@ namespace BookOrder.Application.Tests.Commands
             _mockBookApiClient.Verify(c => c.GetBookInfo(command.BookKey), Times.Once);
             _mockMapper.Verify(m => m.Map<Order>(bookApiResponse), Times.Once);
             _mockBookOrderRepository.Verify(r => r.GetBookOrderAsync(order.BookKey), Times.Once);
+            _mockBookOrderRepository.Verify(r => r.SaveBookOrderAsync(order), Times.Once);
         }
 
         [Theory, AutoData]
@@ -72,6 +73,7 @@ namespace BookOrder.Application.Tests.Commands
             _mockBookApiClient.Verify(c => c.GetBookInfo(command.BookKey), Times.Once);
             _mockMapper.Verify(m => m.Map<Order>(bookApiResponse), Times.Once);
             _mockBookOrderRepository.Verify(r => r.GetBookOrderAsync(order.BookKey), Times.Once);
+            _mockBookOrderRepository.Verify(r => r.SaveBookOrderAsync(order), Times.Once);
         }
 
         [Theory, AutoData]

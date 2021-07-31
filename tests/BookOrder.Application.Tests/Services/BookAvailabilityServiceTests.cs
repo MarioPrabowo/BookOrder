@@ -13,7 +13,6 @@ namespace BookOrder.Application.Services.Tests
     public class BookAvailabilityServiceTests
     {
         private readonly Mock<IOptions<BookAvailabilityOption>> _mockOption;
-        private readonly BookAvailabilityService _service;
 
         public BookAvailabilityServiceTests()
         {
