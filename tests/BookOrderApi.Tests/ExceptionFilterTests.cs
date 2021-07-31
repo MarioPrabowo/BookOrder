@@ -77,18 +77,18 @@ namespace BookOrderApi.Tests
 		}
 
 		[Theory, AutoData]
-		public async Task GivenOtherException_WhenHittingEndPoint_ThenReturnInternalServerError(Exception exception)
+		public async Task GivenOtherException_WhenHittingEndPoint_ThenReturnInternalServerErrorWithoutExceptionDetails(Exception exception)
 		{
 			// Arrange
 			_mediator.Setup(m => m.Send(It.IsAny<GetBookOrderQuery>(), It.IsAny<CancellationToken>())).ThrowsAsync(exception);
 
 			// Act
 			var response = await _client.SendAsync(_message);
-			var returned = await response.Content.ReadAsAsync<string>();
+			var returned = await response.Content.ReadAsStringAsync();
 
 			// Assert
 			response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-			returned.Should().Be(exception.Message);
+			returned.Should().NotContain(exception.Message);
 		}
 	}
 }

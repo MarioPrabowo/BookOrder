@@ -30,17 +30,16 @@ namespace BookOrderApi.Filter
 				return;
 			}
 
-			var statusCode = StatusCodes.Status500InternalServerError;
-
 			if (context.Exception is BusinessLogicException)
 			{
-				statusCode = StatusCodes.Status400BadRequest;
+				context.Result = new JsonResult(context.Exception.Message)
+				{
+					StatusCode = StatusCodes.Status400BadRequest
+				};
+				return;
 			}
 
-			context.Result = new JsonResult(context.Exception.Message)
-			{
-				StatusCode = statusCode
-			};
+			context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
 		}
 	}
 }
