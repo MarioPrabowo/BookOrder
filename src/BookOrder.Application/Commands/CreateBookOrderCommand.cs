@@ -33,6 +33,12 @@ namespace BookOrder.Application.Commands
             {
                 var bookInfo = await _bookApiClient.GetBookInfo(request.BookKey);
                 var order = _mapper.Map<Order>(bookInfo);
+                var existingOrder = await _bookOrderRepository.GetBookOrderAsync(order.BookKey);
+                if(existingOrder != null)
+                {
+                    order.CreatedAt = existingOrder.CreatedAt;
+                }
+
                 await _bookOrderRepository.SaveBookOrderAsync(order);
                 return order;
             }

@@ -7,7 +7,7 @@ namespace BookOrder.Domain
     public class CancelRequest
     {
         public string BookKey { get; set; }
-        public List<string> Subjects { get; set; }
+        public string Covers { get; set; }
         public DateTime CancellationTime { get; set; }
     }
 }

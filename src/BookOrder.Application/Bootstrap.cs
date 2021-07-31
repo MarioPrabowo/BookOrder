@@ -21,6 +21,7 @@ namespace BookOrder.Application
             serviceCollection.AddAutoMapper(typeof(Bootstrap));
 
             serviceCollection.TryAddSingleton<IBookAvailabilityService, BookAvailabilityService>();
+            serviceCollection.TryAddSingleton<IDateTimeService, SystemDateTimeService>();
 
             return serviceCollection;
         }

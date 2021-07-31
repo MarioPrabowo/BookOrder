@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BookOrder.Application.Common
+namespace BookOrder.Domain.Common
 {
     public class BusinessLogicException: Exception
     {

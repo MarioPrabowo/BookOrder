@@ -29,17 +29,12 @@ namespace BookOrder.Infrastructure.Repository
 
         public async Task SaveBookOrderAsync(Order order)
         {
-            var existingOrder = await GetBookOrderAsync(order.BookKey);
-            order.UpdatedAt = DateTime.UtcNow;
-
-            if (existingOrder == null)
+            if (order.CreatedAt == order.UpdatedAt)
             {
-                order.CreatedAt = order.UpdatedAt;
                 _ctx.Add(order);
             }
             else
             {
-                order.CreatedAt = existingOrder.CreatedAt;
                 _ctx.Update(order);    
             }
             

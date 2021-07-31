@@ -1,4 +1,4 @@
-﻿using BookOrder.Application.Common;
+﻿using BookOrder.Domain.Common;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;

@@ -13,8 +13,8 @@ namespace BookOrder.Application.DTO
         public string Title { get; set; }
         [JsonPropertyName("authors")]
         public List<AuthorPayload> AuthorPayloads { get; set; } = new List<AuthorPayload>();
-        [JsonPropertyName("subjects")]
-        public List<string> Subjects { get; set; } = new List<string>();
+        [JsonPropertyName("covers")]
+        public List<int> Covers { get; set; } = new List<int>();
         [JsonIgnore]
         public List<AuthorInfo> Authors { get; set; } = new List<AuthorInfo>();
         

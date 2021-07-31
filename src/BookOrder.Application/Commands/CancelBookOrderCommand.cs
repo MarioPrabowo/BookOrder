@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BookOrder.Application.Common;
+using BookOrder.Domain.Common;
 using BookOrder.Application.Interface.Client;
 using BookOrder.Application.Interface.Persistence;
 using BookOrder.Domain;

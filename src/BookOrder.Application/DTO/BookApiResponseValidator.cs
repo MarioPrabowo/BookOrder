@@ -29,7 +29,7 @@ namespace BookOrder.Application.DTO
             });
 
             RuleSet(nameof(CancelBookOrderCommand), () => {
-                RuleFor(x => x.Subjects).NotEmpty();
+                RuleFor(x => x.Covers).NotEmpty();
             });
 
             RuleFor(x => x.Key).NotNull();
