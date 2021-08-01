@@ -19,9 +19,11 @@ namespace BookOrder.Application.DTO
             RuleSet(nameof(CreateBookOrderCommand), () => {
                 RuleFor(x => x.Title).NotNull();
                 RuleFor(x => x.Authors).NotEmpty();
+
                 RuleFor(x => x.Authors)
-                    .Must(authors => authors == null || authors.All(a => _bookAvailabilityService.IsBookAvailable(a.Name)))
-                    .WithMessage("One or more authors are not available in our service.");
+                    .Must(authors => authors.All(a => _bookAvailabilityService.IsBookAvailable(a.Name)))
+                        .When(x => x.Authors != null)
+                        .WithMessage("One or more authors are not available in our service.");
                 RuleForEach(x => x.Authors).ChildRules(authors =>
                 {
                     authors.RuleFor(a => a.Name).NotEmpty();

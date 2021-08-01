@@ -42,13 +42,13 @@ The `CreateBookOrderCommand` will be validated by `CreateBookOrderCommand.Valida
 ## Handling third-party callback for cancelling order
 When there is a third-party callback to cancel order, the following will happen:
 ### 1. API will receive `ThirdPartyCallbackPayload`
-This will then get packaged inside `GetCommandFromCallbackQuery` and sent to `GetCommandFromCallbackQuery.Handler`
-- It is better to wrap the payload inside `GetCommandFromCallbackQuery`, instead of defining `GetCommandFromCallbackQuery` as the payload. Third-party payload might contain a lot of information and might require some attributes to translate the JSON properties. Adding them to MediatR request will clutter the code too much.
-- Same as usual, the `GetCommandFromCallbackQuery` will get validated before it can reach the handler.
+This will then get packaged inside `GetCallbackCommandQuery` and sent to `GetCallbackCommandQuery.Handler`
+- It is better to wrap the payload inside `GetCallbackCommandQuery`, instead of defining `GetCallbackCommandQuery` as the payload. Third-party payload might contain a lot of information and might require some attributes to translate the JSON properties. Adding them to MediatR request will clutter the code too much.
+- Same as usual, the `GetCallbackCommandQuery` will get validated before it can reach the handler.
 
-### 2. `GetCommandFromCallbackQuery` will determine which command needs to be executed.
+### 2. `GetCallbackCommandQuery` will determine which command needs to be executed.
 - As the callback end point is a generic one, we will need to determine the command that needs to be executed based on the payload's content.
-- `GetCommandFromCallbackQuery` is only returning the next MediatR command instead of executing them to prevent nested handlers, which is [heavily discouraged for MediatR](https://jimmybogard.com/mediatr-9-0-released/).
+- `GetCallbackCommandQuery` is only returning the next MediatR command instead of executing them to prevent nested handlers, which is [heavily discouraged for MediatR](https://jimmybogard.com/mediatr-9-0-released/).
 - If the command is not supported, it will return null, which will be ignored by the controller.
 
 ### 3. Process the command (`CancelBookOrderCommand`)

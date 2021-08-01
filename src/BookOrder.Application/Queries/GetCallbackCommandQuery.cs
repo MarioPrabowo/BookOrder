@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace BookOrder.Application.Queries
 {
-    public class GetCommandFromCallbackQuery : IRequest<IBaseRequest>
+    public class GetCallbackCommandQuery : IRequest<IBaseRequest>
     {
         public ThirdPartyCallbackPayload Payload { get; set; }
 
-        public class Handler : IRequestHandler<GetCommandFromCallbackQuery, IBaseRequest>
+        public class Handler : IRequestHandler<GetCallbackCommandQuery, IBaseRequest>
         {
             public Handler()
             {
             }
 
-            public Task<IBaseRequest> Handle(GetCommandFromCallbackQuery request, CancellationToken cancellationToken)
+            public Task<IBaseRequest> Handle(GetCallbackCommandQuery request, CancellationToken cancellationToken)
             {
                 IBaseRequest command = null;
 
@@ -40,13 +40,16 @@ namespace BookOrder.Application.Queries
             }
         }
 
-        public class Validator : AbstractValidator<GetCommandFromCallbackQuery>
+        public class Validator : AbstractValidator<GetCallbackCommandQuery>
         {
             public Validator()
             {
                 RuleFor(v => v.Payload).NotNull();
-                RuleFor(v => v.Payload.BookKey).NotEmpty();
-                RuleFor(v => v.Payload.Command).NotNull();
+                When(v => v.Payload != null, () =>
+                {
+                    RuleFor(v => v.Payload.BookKey).NotEmpty();
+                    RuleFor(v => v.Payload.Command).NotNull();
+                });
             }
         }
     }

@@ -44,7 +44,7 @@ namespace BookOrderApi.Controllers
         [HttpPost("callback")]
         public async Task ProcessThirdPartyCallback(ThirdPartyCallbackPayload payload)
         {
-            var command = await _mediator.Send(new GetCommandFromCallbackQuery { Payload = payload });
+            var command = await _mediator.Send(new GetCallbackCommandQuery { Payload = payload });
 
             if(command != null)
             {
