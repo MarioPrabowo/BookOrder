@@ -15,11 +15,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOrder.Domain.Tests", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOrder.Tests.Common", "tests\BookOrder.Tests.Common\BookOrder.Tests.Common.csproj", "{E70910C9-6DB6-4465-8D84-270EE8D55504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrder.Infratructure.Tests", "tests\BookOrder.Infratructure.Tests\BookOrder.Infratructure.Tests.csproj", "{2907B2EA-1F4C-4F4C-9B5E-5466704EA0C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOrder.Infratructure.Tests", "tests\BookOrder.Infratructure.Tests\BookOrder.Infratructure.Tests.csproj", "{2907B2EA-1F4C-4F4C-9B5E-5466704EA0C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrderApi.Tests", "tests\BookOrderApi.Tests\BookOrderApi.Tests.csproj", "{CDB1896D-3D53-4E69-B6DE-9F1EE4EC8752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOrderApi.Tests", "tests\BookOrderApi.Tests\BookOrderApi.Tests.csproj", "{CDB1896D-3D53-4E69-B6DE-9F1EE4EC8752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookOrder.Application.Tests", "tests\BookOrder.Application.Tests\BookOrder.Application.Tests.csproj", "{359505DB-B1CD-4F82-955D-2EAF0F01137A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookOrder.Application.Tests", "tests\BookOrder.Application.Tests\BookOrder.Application.Tests.csproj", "{359505DB-B1CD-4F82-955D-2EAF0F01137A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{74AE38F6-26FD-42E5-AA9A-54ABD343F6A2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
